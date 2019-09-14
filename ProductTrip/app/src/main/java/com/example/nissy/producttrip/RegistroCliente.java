@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -48,6 +49,7 @@ public class RegistroCliente extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private Button registo;
+    private TextView login;
 
 
     private String latitud, longitud;
@@ -79,6 +81,16 @@ public class RegistroCliente extends AppCompatActivity {
             }
 
         });
+
+        login = (TextView) findViewById(R.id.link_login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent activity = new Intent(RegistroCliente.this, LoginActivity.class);
+                startActivity(activity);
+            }
+        });
+
     }
 
     private void clearText(){
@@ -164,6 +176,9 @@ public class RegistroCliente extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+
+        int i =0;
     }
 }
 

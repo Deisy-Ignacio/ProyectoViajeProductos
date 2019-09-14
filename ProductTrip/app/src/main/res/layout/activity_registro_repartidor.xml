@@ -39,6 +39,30 @@
                 android:hint="Nombre" />
         </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/input_paterno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:hint="Apellido Paterno" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/input_materno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:hint="Apellido Materno" />
+        </android.support.design.widget.TextInputLayout>
+
         <!--  Dirección Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -103,9 +127,12 @@
             android:padding="12dp"
             android:text="Registrar"/>
 
-        <TextView android:id="@+id/link_login"
+        <TextView
+            android:id="@+id/link_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:clickable="true"
             android:layout_marginBottom="24dp"
             android:text="¿Ya eres miembro? Inicia Sesión"
             android:gravity="center"

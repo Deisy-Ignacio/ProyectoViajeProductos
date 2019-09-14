@@ -480,5 +480,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        //finish();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        onDestroy();
+        super.onPause();
+    }
 }
 
