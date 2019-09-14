@@ -1,4 +1,4 @@
-package com.example.nissy.producttrip;
+package com.example.nissy.producttrip.Activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -32,6 +32,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.nissy.producttrip.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private final static String[] names = { "Tienda", "Repartidor", "Cliente"};
+    private final static String[] names = { "Cliente", "Tienda", "Repartidor"};
     private Spinner spTipo;
     private Button registrar,login;
     private String itemText;
@@ -360,12 +362,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             try {
                 // Simulate network access.
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
-                /*Intent activity = new Intent(LoginActivity.this,VistaClienteActivity.class);
-                startActivity(activity);*/
                 Toast.makeText(LoginActivity.this,"Inicio exitoso.",Toast.LENGTH_LONG).show();
-                return false;//otra vista
+                //return false;//otra vista
             }
 
             if(itemText.equals("Cliente")) {

@@ -1,10 +1,12 @@
-package com.example.nissy.producttrip;
+package com.example.nissy.producttrip.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.example.nissy.producttrip.R;
 
 public class VistaTiendaActivity extends AppCompatActivity {
     private ImageButton add;

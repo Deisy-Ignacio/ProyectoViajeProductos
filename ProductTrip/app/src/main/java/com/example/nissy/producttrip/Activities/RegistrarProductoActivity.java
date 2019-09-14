@@ -1,7 +1,9 @@
-package com.example.nissy.producttrip;
+package com.example.nissy.producttrip.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.nissy.producttrip.R;
 
 public class RegistrarProductoActivity extends AppCompatActivity {
 

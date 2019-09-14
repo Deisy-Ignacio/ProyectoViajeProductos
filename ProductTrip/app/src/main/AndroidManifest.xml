@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nissy.producttrip">
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activities.VistaListaProductosActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,14 +20,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".VistaClienteActivity"
+            android:name=".Activities.VistaClienteActivity"
             android:label="@string/title_activity_vista_cliente"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RegistroCliente" />
-        <activity android:name=".RegistroRepartidorActivity" />
-        <activity android:name=".RegistroTiendaActivity" />
-        <activity android:name=".VistaTiendaActivity" />
-        <activity android:name=".RegistrarProductoActivity"></activity>
+        <activity android:name=".Activities.RegistroCliente" />
+        <activity android:name=".Activities.RegistroRepartidorActivity" />
+        <activity android:name=".Activities.RegistroTiendaActivity" />
+        <activity android:name=".Activities.VistaTiendaActivity" />
+        <activity android:name=".Activities.RegistrarProductoActivity" />
     </application>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
 </manifest>
