@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,8 +34,26 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+<<<<<<< HEAD:ProductTrip/app/src/main/java/com/example/nissy/producttrip/Activities/LoginActivity.java
 import com.example.nissy.producttrip.R;
 
+=======
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.example.nissy.producttrip.conexion.Peticiones;
+import com.example.nissy.producttrip.conexion.VolleySingleton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+>>>>>>> 6a8df0a230619d0d138a00c1cd8ed3e89e240a36:ProductTrip/app/src/main/java/com/example/nissy/producttrip/LoginActivity.java
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,12 +67,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Id to identity READ_CONTACTS permission request.
      */
+    public static final String BASE_URL = "http://10.0.0.11/api/auth/";
     private static final int REQUEST_READ_CONTACTS = 0;
 
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
+
     private static final String[] DUMMY_CREDENTIALS_CLIENTES = new String[]{
             "ignaciolld.105@gmail.com:hello", "bar@example.com:world"
     };
@@ -360,51 +381,94 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
+<<<<<<< HEAD:ProductTrip/app/src/main/java/com/example/nissy/producttrip/Activities/LoginActivity.java
             try {
                 // Simulate network access.
                 Thread.sleep(1000);
+=======
+
+            try{
+                Thread.sleep(2000);
+                login(mEmail,mPassword);
+>>>>>>> 6a8df0a230619d0d138a00c1cd8ed3e89e240a36:ProductTrip/app/src/main/java/com/example/nissy/producttrip/LoginActivity.java
             } catch (InterruptedException e) {
                 Toast.makeText(LoginActivity.this,"Inicio exitoso.",Toast.LENGTH_LONG).show();
                 //return false;//otra vista
             }
-
-            if(itemText.equals("Cliente")) {
-                for (String credential : DUMMY_CREDENTIALS_CLIENTES) {
-                    Intent activity = new Intent(LoginActivity.this, VistaClienteActivity.class);//CLIENTE
-                    String[] pieces = credential.split(":");
-                    if (pieces[0].equals(mEmail)) {
-                        // Account exists, return true if the password matches.
-                        if (pieces[1].equals(mPassword))
-                            startActivity(activity);
-                    }
-                }
-            }
-            else if(itemText.equals("Repartidor")) {
-                for (String credential : DUMMY_CREDENTIALS_REPARTIDOR) {
-                    Intent activity = new Intent(LoginActivity.this, VistaClienteActivity.class);//REPARTIDOR
-                    String[] pieces = credential.split(":");
-                    if (pieces[0].equals(mEmail)) {
-                        // Account exists, return true if the password matches.
-                        if (pieces[1].equals(mPassword))
-                            startActivity(activity);
-                    }
-                }
-            }
-
-            else if(itemText.equals("Tienda")) {
-                for (String credential : DUMMY_CREDENTIALS_TIENDA) {
-                    Intent activity = new Intent(LoginActivity.this, VistaTiendaActivity.class);//REPARTIDOR
-                    String[] pieces = credential.split(":");
-                    if (pieces[0].equals(mEmail)) {
-                        // Account exists, return true if the password matches.
-                        if (pieces[1].equals(mPassword))
-                            startActivity(activity);
-                    }
-                }
-            }
             // TODO: register the new account here.
-            return true;
+            return false;
         }
+
+        public void login(String correo, String contra){
+            String URL = "login/"+itemText.toLowerCase();
+            JSONObject jsonBody = new JSONObject();
+            try {
+                jsonBody.put("correo", correo);
+                jsonBody.put("contrasena", contra);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+                final String requestBody = jsonBody.toString();
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL+URL,
+                        new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Toast.makeText(LoginActivity.this, response,Toast.LENGTH_LONG).show();
+                        //Log.i("VOLLEY", response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String mensaje = jsonObject.getString("mensaje");
+                            Log.i("VOLLEY", mensaje);
+                            Intent activity = null;
+                            if(itemText.equals("Cliente") && mensaje.equals("ok")) {
+                                activity = new Intent(LoginActivity.this, VistaClienteActivity.class);//REPARTIDO
+                                startActivity(activity);
+                            }
+                            else if(itemText.equals("Repartidor") && mensaje.equals("ok")) {
+                                activity = new Intent(LoginActivity.this, VistaClienteActivity.class);//REPARTIDO
+                                startActivity(activity);
+                            }
+                            else if(itemText.equals("Tienda") && mensaje.equals("ok")) {
+                                activity = new Intent(LoginActivity.this, VistaTiendaActivity.class);//REPARTIDOR
+                                startActivity(activity);
+                            }else{
+                                Toast.makeText(LoginActivity.this, mensaje,Toast.LENGTH_LONG).show();
+                            }
+
+                        } catch (JSONException e) {
+                            Log.e("VOLLEY", e.toString());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("VOLLEY", error.toString());
+                    }
+                }) {
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json; charset=utf-8";
+                    }
+
+                    @Override
+                    public byte[] getBody() throws AuthFailureError {
+                        try {
+                            return requestBody == null ? null : requestBody.getBytes("utf-8");
+                        } catch (UnsupportedEncodingException uee) {
+                            VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                            return null;
+                        }
+                    }
+
+                    @Override
+                    protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                        //String statusCode = String.valueOf(response.statusCode);
+                        return super.parseNetworkResponse(response);
+                    }
+                };
+                VolleySingleton.getInstance(LoginActivity.this).addToRequestQueue(stringRequest);
+
+            }
 
         @Override
         protected void onPostExecute(final Boolean success) {
