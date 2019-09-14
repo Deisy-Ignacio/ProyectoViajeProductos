@@ -41,6 +41,8 @@ import java.util.Locale;
 public class RegistroCliente extends AppCompatActivity {
 
     private EditText name;
+    private EditText lastname;
+    private EditText lastsecondname;
     private EditText address;
     private EditText phone;
     private EditText email;
@@ -55,6 +57,9 @@ public class RegistroCliente extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_cliente);
         name = (EditText) findViewById(R.id.input_name);
+        lastname = (EditText) findViewById(R.id.input_apaterno);
+        lastsecondname = (EditText) findViewById(R.id.input_amaterno);
+        name = (EditText) findViewById(R.id.input_name);
         address = (EditText) findViewById(R.id.input_address);
         phone = (EditText) findViewById(R.id.edit_phone);
         email = (EditText) findViewById(R.id.input_email);
@@ -64,16 +69,35 @@ public class RegistroCliente extends AppCompatActivity {
         registo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendPOST(name,address,phone,email,password);
+                sendPOST(name.getText().toString(),
+                        lastname.getText().toString(),
+                        lastsecondname.getText().toString(),
+                        address.getText().toString(),
+                        phone.getText().toString(),
+                        email.getText().toString(),
+                        password.getText().toString());
             }
 
         });
     }
-    private void sendPOST(EditText name, EditText address, EditText phone, EditText email, EditText password) {
+
+    private void clearText(){
+        name.setText("");
+        lastname.setText("");
+        lastsecondname.setText("");
+        address.setText("");
+        phone.setText("");
+        email.setText("");
+        password.setText("");
+    }
+
+    private void sendPOST(String name,String lastname,String lastsecondname, String address, String phone, String email, String password) {
         String URL = "registro/cliente";
         final JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("nombre", name);
+            jsonBody.put("apaterno", name);
+            jsonBody.put("apmaterno", name);
             jsonBody.put("direccion", address);
             jsonBody.put("telefono", phone);
             jsonBody.put("correo", email);
@@ -89,16 +113,19 @@ public class RegistroCliente extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String status = jsonObject.getString("status");
-                            String mensaje;
-                            if(status.equals("1")) {
-                                mensaje = jsonObject.getString("mensaje");
+                            String mensaje = jsonObject.getString("mensaje");
 
-                            }else{
-                                mensaje = "Algo salio mal";
+                            if(status.equals("1")){
+                                Toast.makeText(RegistroCliente.this, mensaje,Toast.LENGTH_LONG).show();
+                                Intent activity = new Intent(RegistroCliente.this, VistaClienteActivity.class);//REPARTIDO
+                                activity.putExtra("cliente",jsonBody.toString());
+                                Log.i("VOLLEY", jsonBody.toString());
+                                startActivity(activity);
                             }
-                            Log.i("VOLLEY", mensaje);
-
-
+                            else{
+                                Log.i("VOLLEY", jsonObject.toString());
+                                Toast.makeText(RegistroCliente.this, mensaje,Toast.LENGTH_LONG).show();
+                            }
                         } catch (JSONException e) {
                             Log.e("VOLLEY", e.toString());
                         }
@@ -134,6 +161,10 @@ public class RegistroCliente extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
 
 

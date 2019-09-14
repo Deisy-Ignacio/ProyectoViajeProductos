@@ -33,21 +33,29 @@ class ContCliente extends Controller{
     }
 
     public function registro(Request $request){
-        MCliente::insert([
-            'nombre'=>$request->nombre,
-            'apaterno'=>$request->apaterno,
-            'apmaterno'=>$request->apmaterno,
-            'direccion'=>$request->direccion,
-            'telefono'=>$request->telefono,
-            'correo' => $request->correo,
-            'contrasena'=>$request->contrasena,
-            'latitud'=>$request->latitud,
-            'longitud'=>$request->longitud
-        ]);
-
-        return response()->json([
-            'status' => '1',
-            'mensaje' => 'Se ha agregado con éxito'
+        $status = '1';
+        $mensaje = 'Se ha agregado con exito';
+        try{
+            MCliente::insert([
+                'nombre'=>$request->nombre,
+                'apaterno'=>$request->apaterno,
+                'apmaterno'=>$request->apmaterno,
+                'direccion'=>$request->direccion,
+                'telefono'=>$request->telefono,
+                'correo' => $request->correo,
+                'contrasena'=>$request->contrasena
             ]);
+        } catch(QueryException $ex){ 
+            $status = '0';
+            $mensaje = $ex;
+            if($ex->errorInfo[0] == '23505'){
+                $mensaje = 'El correo ya ha sido registrado';
+            }
+        }
+        return response()
+        ->json([
+            'status' => $status,
+            'mensaje' => $mensaje
+        ]);
     }
 }

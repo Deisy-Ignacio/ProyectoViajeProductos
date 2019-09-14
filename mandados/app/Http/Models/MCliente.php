@@ -19,8 +19,6 @@ class MCliente extends Model{
         'direccion',
         'telefono',
         'correo',
-        'contrasena',
-        'latitud',
-        'longitud'
+        'contrasena'
     ];
 }
