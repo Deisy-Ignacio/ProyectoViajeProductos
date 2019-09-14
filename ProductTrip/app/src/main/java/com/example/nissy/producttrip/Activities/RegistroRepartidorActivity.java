@@ -1,4 +1,4 @@
-package com.example.nissy.producttrip;
+package com.example.nissy.producttrip.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +23,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+
+import com.example.nissy.producttrip.R;
 
 public class RegistroRepartidorActivity extends AppCompatActivity {
     private EditText name;

@@ -1,4 +1,4 @@
-package com.example.nissy.producttrip;
+package com.example.nissy.producttrip.Activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -38,6 +38,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
+
+import com.example.nissy.producttrip.R;
 
 public class RegistroCliente extends AppCompatActivity {
 

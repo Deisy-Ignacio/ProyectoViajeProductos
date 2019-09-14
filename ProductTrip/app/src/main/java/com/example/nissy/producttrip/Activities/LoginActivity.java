@@ -1,4 +1,4 @@
-package com.example.nissy.producttrip;
+package com.example.nissy.producttrip.Activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -34,6 +34,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+<<<<<<< HEAD:ProductTrip/app/src/main/java/com/example/nissy/producttrip/Activities/LoginActivity.java
+import com.example.nissy.producttrip.R;
+
+=======
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -49,6 +53,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+>>>>>>> 6a8df0a230619d0d138a00c1cd8ed3e89e240a36:ProductTrip/app/src/main/java/com/example/nissy/producttrip/LoginActivity.java
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,7 +94,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private final static String[] names = { "Tienda", "Repartidor", "Cliente"};
+    private final static String[] names = { "Cliente", "Tienda", "Repartidor"};
     private Spinner spTipo;
     private Button registrar,login;
     private String itemText;
@@ -376,15 +381,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
+<<<<<<< HEAD:ProductTrip/app/src/main/java/com/example/nissy/producttrip/Activities/LoginActivity.java
+            try {
+                // Simulate network access.
+                Thread.sleep(1000);
+=======
 
             try{
                 Thread.sleep(2000);
                 login(mEmail,mPassword);
+>>>>>>> 6a8df0a230619d0d138a00c1cd8ed3e89e240a36:ProductTrip/app/src/main/java/com/example/nissy/producttrip/LoginActivity.java
             } catch (InterruptedException e) {
-                /*Intent activity = new Intent(LoginActivity.this,VistaClienteActivity.class);
-                startActivity(activity);*/
                 Toast.makeText(LoginActivity.this,"Inicio exitoso.",Toast.LENGTH_LONG).show();
-                return false;//otra vista
+                //return false;//otra vista
             }
             // TODO: register the new account here.
             return false;
