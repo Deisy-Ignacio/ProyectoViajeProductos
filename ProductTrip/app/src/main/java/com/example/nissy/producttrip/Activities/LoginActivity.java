@@ -33,11 +33,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-<<<<<<< HEAD:ProductTrip/app/src/main/java/com/example/nissy/producttrip/Activities/LoginActivity.java
 import com.example.nissy.producttrip.R;
-
-=======
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -53,7 +49,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
->>>>>>> 6a8df0a230619d0d138a00c1cd8ed3e89e240a36:ProductTrip/app/src/main/java/com/example/nissy/producttrip/LoginActivity.java
 import java.util.ArrayList;
 import java.util.List;
 
@@ -381,16 +376,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-<<<<<<< HEAD:ProductTrip/app/src/main/java/com/example/nissy/producttrip/Activities/LoginActivity.java
-            try {
-                // Simulate network access.
-                Thread.sleep(1000);
-=======
-
             try{
                 Thread.sleep(2000);
                 login(mEmail,mPassword);
->>>>>>> 6a8df0a230619d0d138a00c1cd8ed3e89e240a36:ProductTrip/app/src/main/java/com/example/nissy/producttrip/LoginActivity.java
             } catch (InterruptedException e) {
                 Toast.makeText(LoginActivity.this,"Inicio exitoso.",Toast.LENGTH_LONG).show();
                 //return false;//otra vista
