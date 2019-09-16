@@ -16,7 +16,9 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.nissy.producttrip.Clases.Session;
 import com.example.nissy.producttrip.Fragments.ClienteTiendaFragment;
 import com.example.nissy.producttrip.Fragments.Cliente_CarritosFragment;
 import com.example.nissy.producttrip.Fragments.Cliente_pedidosFragment;
@@ -81,7 +83,11 @@ public class VistaClienteActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Session session = new Session(VistaClienteActivity.this);
+            session.setcorreo("");
+            session.setcontrasena("");
+            session.settipo("");
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

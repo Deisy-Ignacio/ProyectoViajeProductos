@@ -18,6 +18,7 @@ public class Producto implements Serializable {
     private String descripcion;
     private int stock;
     private Producto Producto;
+    private int idTienda;
 
 
     public void setmQuantity(int mQuantity) {
@@ -26,7 +27,7 @@ public class Producto implements Serializable {
 
     public Producto(){}
 
-    public Producto(int id,String mName,String descripcion, int mCantidad,int stock) {
+    public Producto(int id,int idTienda,String mName,String descripcion, int mCantidad,int stock) {
         this.mName = mName;
         this.mCantidad = mCantidad;
         this.mQuantity = 1;

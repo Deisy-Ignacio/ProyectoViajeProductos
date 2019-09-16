@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.nissy.producttrip.Activities.LoginActivity;
 import com.example.nissy.producttrip.Activities.VistaListaProductosActivity;
 import com.example.nissy.producttrip.R;
+import com.example.nissy.producttrip.conexion.VolleySingleton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -28,22 +40,17 @@ import java.util.ArrayList;
  */
 public class ClienteTiendaFragment extends Fragment {
     private ListView listView;
-    private ArrayList<String> nombreTienda  = new ArrayList<String>();
+    private ArrayList<String> nombreTienda  = new ArrayList<>();
+    private ArrayList<String> idTienda  = new ArrayList<>();
+    private ArrayList<String> coordenadas  = new ArrayList<>();
+    ArrayAdapter<String> adaptador;
 
     private OnFragmentInteractionListener mListener;
 
     public ClienteTiendaFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ClienteTiendaFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static ClienteTiendaFragment newInstance(String param1, String param2) {
         ClienteTiendaFragment fragment = new ClienteTiendaFragment();
@@ -72,23 +79,53 @@ public class ClienteTiendaFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
+        getDataJSON();
         listView = (ListView)getView().findViewById(R.id.ListViewTienda);
-        nombreTienda.add("Abarrotes Mary");
-        nombreTienda.add("Miscelanea Paco");
-        nombreTienda.add("Walmart");
-        nombreTienda.add("SHEIN");
-        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,nombreTienda);
+        adaptador = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,nombreTienda);
+
         listView.setAdapter(adaptador);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(view.getContext(), VistaListaProductosActivity.class);
                 intent.putExtra("nombre",nombreTienda.get(i));
-                intent.putExtra("ID",i);
+                intent.putExtra("idtienda",idTienda.get(i));
+                intent.putExtra("coordenadas",coordenadas.get(i));
                 startActivity(intent);
             }
         });
     }
+
+    public void getDataJSON(){
+        String URL = "all/tienda";
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
+                (Request.Method.GET, LoginActivity.BASE_URL+URL, null, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            //Log.i("VOLLEY",response.toString());
+                            for (int i = 0; i<response.length(); i++) {
+                                JSONObject datos = response.getJSONObject(i);
+                                nombreTienda.add(datos.getString("nombre"));
+                                idTienda.add(datos.getString("idtienda"));
+                                coordenadas.add(datos.getString("latitud")+","+datos.getString("longitud"));
+                                adaptador.notifyDataSetChanged();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+
+                    }
+                });
+        VolleySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

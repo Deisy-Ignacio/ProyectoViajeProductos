@@ -33,6 +33,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.nissy.producttrip.Clases.Session;
 import com.example.nissy.producttrip.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -41,10 +43,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
-import com.example.nissy.producttrip.conexion.Peticiones;
 import com.example.nissy.producttrip.conexion.VolleySingleton;
+import com.facebook.CallbackManager;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,34 +55,16 @@ import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-/**
- * A login screen that offers login via email/password.
- */
+
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
      */
-    public static final String BASE_URL = "http://10.0.0.11/api/auth/";
+    public static final String BASE_URL = "http://192.168.1.65/api/auth/";
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-
-    private static final String[] DUMMY_CREDENTIALS_CLIENTES = new String[]{
-            "ignaciolld.105@gmail.com:hello", "bar@example.com:world"
-    };
-    private static final String[] DUMMY_CREDENTIALS_REPARTIDOR = new String[]{
-            "nissy_14@hotmail.com:hello", "saul@example.com:world"
-    };
-    private static final String[] DUMMY_CREDENTIALS_TIENDA= new String[]{
-            "nissy_14@hotmail.com:hello", "joshua@example.com:world"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+    private CallbackManager callbackManager;
     private UserLoginTask mAuthTask = null;
 
     // UI references.
@@ -99,6 +82,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
+        Session session = new Session(LoginActivity.this);
+        if(!session.gettipo().equals(""))
+            dologin(session.getcorreo(),session.getcontrasena(),session.gettipo());
+
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
@@ -160,6 +147,80 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 startActivity(registro);
             }
         });
+
+    }
+
+
+
+    public void dologin(String correo, String contra, final String tipo){
+        String URL = "login/"+tipo;
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("correo", correo);
+            jsonBody.put("contrasena", contra);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        final String requestBody = jsonBody.toString();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL+URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String mensaje = jsonObject.getString("mensaje");
+                            Log.i("VOLLEY", jsonObject.toString());
+                            Intent activity = null;
+                            if(tipo.equals("cliente") && mensaje.equals("ok")) {
+                                activity = new Intent(LoginActivity.this, VistaClienteActivity.class);//CLIENTe
+                                activity.putExtra("cliente",jsonObject.getString("cliente"));
+                                startActivity(activity);
+                            }
+                            else if(tipo.equals("repartidor") && mensaje.equals("ok")) {
+                                String rep= jsonObject.getString("repartidor");
+                                activity = new Intent(LoginActivity.this, PedidosDisponibles.class);//REPARTIDO
+                                activity.putExtra("repartidor",rep);
+                                startActivity(activity);
+                            }
+                            else if(tipo.equals("repartidor") && mensaje.equals("ok")) {
+                                activity = new Intent(LoginActivity.this, VistaTiendaActivity.class);//TIENDA
+                                startActivity(activity);
+                            }
+                            finish();
+
+                        } catch (JSONException e) {
+                            Log.e("VOLLEY", e.toString());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("VOLLEY", error.toString());
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return requestBody == null ? null : requestBody.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                    return null;
+                }
+            }
+
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                //String statusCode = String.valueOf(response.statusCode);
+                return super.parseNetworkResponse(response);
+            }
+        };
+        VolleySingleton.getInstance(LoginActivity.this).addToRequestQueue(stringRequest);
+
     }
 
     private void populateAutoComplete() {
@@ -265,7 +326,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 3;
     }
 
     /**
@@ -378,17 +439,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             try{
                 Thread.sleep(2000);
-                login(mEmail,mPassword);
+                dologin(mEmail,mPassword,itemText.toLowerCase());
+                Thread.sleep(2000);
+
             } catch (InterruptedException e) {
                 Toast.makeText(LoginActivity.this,"Inicio exitoso.",Toast.LENGTH_LONG).show();
-                //return false;//otra vista
             }
             // TODO: register the new account here.
             return false;
         }
 
-        public void login(String correo, String contra){
-            String URL = "login/"+itemText.toLowerCase();
+        public void dologin(final String correo, final String contra, final String tipo){
+            String URL = "login/"+tipo;
             JSONObject jsonBody = new JSONObject();
             try {
                 jsonBody.put("correo", correo);
@@ -401,23 +463,32 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //Toast.makeText(LoginActivity.this, response,Toast.LENGTH_LONG).show();
-                        //Log.i("VOLLEY", response);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String mensaje = jsonObject.getString("mensaje");
-                            Log.i("VOLLEY", mensaje);
+                            Log.i("VOLLEY", jsonObject.toString());
                             Intent activity = null;
+
+                            if(mensaje.equals("ok")){
+                                Session session = new Session(LoginActivity.this);
+                                session.setcorreo(correo);
+                                session.setcontrasena(contra);
+                                session.settipo(tipo);
+                            }
+
                             if(itemText.equals("Cliente") && mensaje.equals("ok")) {
-                                activity = new Intent(LoginActivity.this, VistaClienteActivity.class);//REPARTIDO
+                                activity = new Intent(LoginActivity.this, VistaClienteActivity.class);//CLIENTe
+                                activity.putExtra("cliente",jsonObject.getString("cliente"));
                                 startActivity(activity);
                             }
                             else if(itemText.equals("Repartidor") && mensaje.equals("ok")) {
-                                activity = new Intent(LoginActivity.this, VistaClienteActivity.class);//REPARTIDO
+                                String rep= jsonObject.getString("repartidor");
+                                activity = new Intent(LoginActivity.this, PedidosDisponibles.class);//REPARTIDO
+                                activity.putExtra("repartidor",rep);
                                 startActivity(activity);
                             }
                             else if(itemText.equals("Tienda") && mensaje.equals("ok")) {
-                                activity = new Intent(LoginActivity.this, VistaTiendaActivity.class);//REPARTIDOR
+                                activity = new Intent(LoginActivity.this, VistaTiendaActivity.class);//TIENDA
                                 startActivity(activity);
                             }else{
                                 Toast.makeText(LoginActivity.this, mensaje,Toast.LENGTH_LONG).show();
@@ -480,14 +551,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onDestroy() {
-        //finish();
         super.onDestroy();
+        finish();
     }
 
     @Override
     protected void onPause() {
-        onDestroy();
         super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }
 

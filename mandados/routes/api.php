@@ -31,7 +31,8 @@ Route::group(['prefix'=>'auth'], function(){
     Route::get('all/producto/{idtienda}','ContProducto@productos');
     Route::post('registro/producto','ContProducto@registro');
 
-    Route::get('disponibles/pedido','ContPedido@pedidos');
+    Route::get('disponibles/pedido','ContPedido@pedidosRepartidor');
     Route::post('asignar/pedido','ContPedido@asignarRepartidor');
+    Route::post('sin/pedido','ContPedido@sinconfirmar');
     //asignarRepartidor
 });

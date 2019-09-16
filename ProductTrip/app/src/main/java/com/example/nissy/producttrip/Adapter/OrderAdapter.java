@@ -37,7 +37,7 @@ public class OrderAdapter extends ArrayAdapter<Producto> {
         View listItemView = convertView;
         if(listItemView == null){
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.item_carrito,parent,false
+                    R.layout.item_carrito,parent,   false
             );
         }
 

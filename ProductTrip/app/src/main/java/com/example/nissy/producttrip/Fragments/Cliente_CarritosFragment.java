@@ -119,11 +119,11 @@ public class Cliente_CarritosFragment extends Fragment {
 
     private ArrayList<Producto> getListItemData(){
         ArrayList<Producto> listViewItems = new ArrayList<Producto>();
-        listViewItems.add(new Producto(1,"Juguete","Rojo",30,5));
-        listViewItems.add(new Producto(2,"Cuchara","plateada",40,7));
-        listViewItems.add(new Producto(4,"Mouse","gamer",60,4));
-        listViewItems.add(new Producto(3,"Pizza","Familiar",80,5));
-        listViewItems.add(new Producto(6,"Vaso","vidrio",100,85));
+        listViewItems.add(new Producto(1,1,"Juguete","Rojo",30,5));
+        listViewItems.add(new Producto(2,1,"Cuchara","plateada",40,7));
+        listViewItems.add(new Producto(4,1,"Mouse","gamer",60,4));
+        listViewItems.add(new Producto(3,1,"Pizza","Familiar",80,5));
+        listViewItems.add(new Producto(6,1,"Vaso","vidrio",100,85));
 
         return listViewItems;
     }
