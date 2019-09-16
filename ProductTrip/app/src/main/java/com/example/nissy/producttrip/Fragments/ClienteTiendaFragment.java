@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.nissy.producttrip.Activities.VistaListaProductosActivity;
 import com.example.nissy.producttrip.R;
@@ -35,15 +34,6 @@ public class ClienteTiendaFragment extends Fragment {
     public ClienteTiendaFragment() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ClienteTiendaFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static ClienteTiendaFragment newInstance(String param1, String param2) {
         ClienteTiendaFragment fragment = new ClienteTiendaFragment();
@@ -82,7 +72,7 @@ public class ClienteTiendaFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(view.getContext(), VistaListaProductosActivity.class);
+                Intent intent = new Intent(view.getContext(), VistaListaProductosActivity.class); //PASAR A OTRA ACTIVIDAD JIJIJ
                 intent.putExtra("nombre",nombreTienda.get(i));
                 intent.putExtra("ID",i);
                 startActivity(intent);
@@ -113,17 +103,6 @@ public class ClienteTiendaFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

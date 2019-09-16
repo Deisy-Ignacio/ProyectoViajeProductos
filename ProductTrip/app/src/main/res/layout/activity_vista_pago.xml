@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/nombre_p"
+        android:layout_width="133dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="121dp"
+        android:layout_marginEnd="157dp"
+        android:layout_marginBottom="582dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/precio"
+        android:layout_width="133dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/pagar_producto"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="119dp"
+        android:layout_marginEnd="158dp"
+        android:layout_marginBottom="53dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/descripcion"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/nombre_p"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="121dp"
+        android:layout_marginEnd="154dp"
+        android:layout_marginBottom="-56dp"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/pagar_producto"
+        android:layout_width="188dp"
+        android:layout_height="67dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="108dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginBottom="351dp"
+        android:text="Procesar Pago"
+        android:onClick="pay"/>
+</RelativeLayout>
