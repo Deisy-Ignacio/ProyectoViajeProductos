@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,22 +12,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+<<<<<<< HEAD
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+=======
+>>>>>>> 6c4425bdfd017601e6ecdedf3dfebdef406667f0
 
 import com.example.nissy.producttrip.Clases.Session;
 import com.example.nissy.producttrip.Fragments.ClienteTiendaFragment;
-import com.example.nissy.producttrip.Fragments.Cliente_CarritosFragment;
 import com.example.nissy.producttrip.Fragments.Cliente_pedidosFragment;
 import com.example.nissy.producttrip.R;
 
-import java.util.ArrayList;
-
 public class VistaClienteActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, Cliente_pedidosFragment.OnFragmentInteractionListener,
-        Cliente_CarritosFragment.OnFragmentInteractionListener, ClienteTiendaFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, Cliente_pedidosFragment.OnFragmentInteractionListener, ClienteTiendaFragment.OnFragmentInteractionListener {
 
 
     @Override
@@ -104,10 +102,10 @@ public class VistaClienteActivity extends AppCompatActivity
             miFragment = new ClienteTiendaFragment();
             fragmentSeleccionaldo = true;
         }
-        else if (id == R.id.carrito) {
-            miFragment = new Cliente_CarritosFragment();
+        /*else if (id == R.id.carrito) {
+            /*miFragment = new Cliente_CarritosFragment();
             fragmentSeleccionaldo = true;
-        } else if (id == R.id.pedidos) {
+        }*/ else if (id == R.id.pedidos) {
             miFragment = new Cliente_pedidosFragment();
             fragmentSeleccionaldo = true;
 

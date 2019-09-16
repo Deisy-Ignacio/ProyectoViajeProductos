@@ -61,7 +61,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Id to identity READ_CONTACTS permission request.
      */
+<<<<<<< HEAD
     public static final String BASE_URL = "http://192.168.1.65/api/auth/";
+=======
+    public static final String BASE_URL = "http://192.168.1.71/api/auth/"; //MI IP, NO LO OLVIDO :B
+>>>>>>> 6c4425bdfd017601e6ecdedf3dfebdef406667f0
     private static final int REQUEST_READ_CONTACTS = 0;
 
     private CallbackManager callbackManager;
@@ -555,9 +559,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         finish();
     }
 
-    @Override
+    /*@Override
     protected void onPause() {
         super.onPause();
+<<<<<<< HEAD
     }
 
     @Override
@@ -570,5 +575,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onStop();
         finish();
     }
+=======
+    }*/
+>>>>>>> 6c4425bdfd017601e6ecdedf3dfebdef406667f0
 }
 

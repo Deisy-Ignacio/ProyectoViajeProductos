@@ -2,7 +2,7 @@ package com.example.nissy.producttrip.Clases;
 
 import java.io.Serializable;
 
-public class Producto implements Serializable {
+public class Producto  implements Serializable {
     /**
      * ID Tienda
      * Nombre

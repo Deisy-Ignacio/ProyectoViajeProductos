@@ -1,8 +1,7 @@
 package com.example.nissy.producttrip.Activities;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,8 +19,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+=======
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+
+import com.example.nissy.producttrip.Adapter.CustomRecyclerAdapterProducto;
+>>>>>>> 6c4425bdfd017601e6ecdedf3dfebdef406667f0
 import com.example.nissy.producttrip.Clases.Producto;
-import com.example.nissy.producttrip.Control.ProductosArray;
 import com.example.nissy.producttrip.R;
 import com.example.nissy.producttrip.conexion.VolleySingleton;
 
@@ -31,18 +36,27 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class VistaListaProductosActivity extends AppCompatActivity {
+<<<<<<< HEAD
     private ProductosArray listaProduc = new ProductosArray();
     private int idtienda;
     private ArrayList<Producto> listItem = new ArrayList<>();
     MyListAdaper myListAdaper;
+=======
+
+    RecyclerView recyclerView;
+    RecyclerView.Adapter mAdapter;
+    RecyclerView.LayoutManager layoutManager;
+
+    List<Producto> personUtilsList;
+
+>>>>>>> 6c4425bdfd017601e6ecdedf3dfebdef406667f0
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vista_lista_productos);
+<<<<<<< HEAD
         ListView lv = (ListView) findViewById(R.id.ListViewTienda);
 
         idtienda = Integer.parseInt(getIntent().getStringExtra("idtienda"));
@@ -106,78 +120,28 @@ public class VistaListaProductosActivity extends AppCompatActivity {
             data.add("This is row number " + i);
         }
     }
+=======
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }*/
+        recyclerView = (RecyclerView) findViewById(R.id.recycleViewContainer);
+        recyclerView.setHasFixedSize(true);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        layoutManager = new LinearLayoutManager(this);
+>>>>>>> 6c4425bdfd017601e6ecdedf3dfebdef406667f0
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        recyclerView.setLayoutManager(layoutManager);
 
-        return super.onOptionsItemSelected(item);
+        personUtilsList = new ArrayList<>();
+
+        //Adding Data into ArrayList
+        personUtilsList.add(new Producto(1,"Chocolate","dulce",15,8));
+        personUtilsList.add(new Producto(2,"carro","dulce",15,8));
+        personUtilsList.add(new Producto(3,"pelota","dulce",85,8));
+        personUtilsList.add(new Producto(4,"Camion","dulce",17,8));
+
+
+        mAdapter = new CustomRecyclerAdapterProducto(this, personUtilsList);
+
+        recyclerView.setAdapter(mAdapter);
+
     }
-
-    private class MyListAdaper extends ArrayAdapter<Producto> {
-        private int layout;
-        private List<Producto> mObjects;
-        private MyListAdaper(Context context, int resource, List<Producto> objects) {
-            super(context,resource,objects);
-            mObjects = objects;
-            layout = resource;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            //setContentView(R.layout.vista_lista_productos);
-            ViewHolder mainViewholder = null;
-            if(convertView == null) {
-                LayoutInflater inflater = LayoutInflater.from(getContext());
-                convertView = inflater.inflate(layout, parent, false);
-                ViewHolder viewHolder = new ViewHolder();
-                viewHolder.thumbnail = (ImageView) convertView.findViewById(R.id.list_item_thumbnail);
-                viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
-                viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
-                convertView.setTag(viewHolder);
-            }
-            mainViewholder = (ViewHolder) convertView.getTag();
-            mainViewholder.button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "Se añadió con éxito. ", Toast.LENGTH_SHORT).show();
-                    listaProduc.agregarProducto(getItem(position).getProduct());
-                                   }
-            });
-            String texto =  getItem(position).getmName() +"\n $"+ getItem(position).getmCantidad();
-            //mainViewholder.title.setText(getItem(position).getmName());
-            mainViewholder.title.setText(texto.replaceAll("\\\\n", "\n"));
-
-
-
-
-            return convertView;
-        }
-    }
-    public class ViewHolder {
-
-        ImageView thumbnail;
-        TextView title;
-        Button button;
-    }
-
-    public ProductosArray carrito(){
-        return listaProduc;
-    }
-
 }
