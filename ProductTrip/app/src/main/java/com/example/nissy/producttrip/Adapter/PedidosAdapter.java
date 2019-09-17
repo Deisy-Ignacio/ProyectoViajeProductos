@@ -1,7 +1,11 @@
 package com.example.nissy.producttrip.Adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,6 +25,8 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.example.nissy.producttrip.Activities.LoginActivity;
 import com.example.nissy.producttrip.Activities.MapsActivity;
+import com.example.nissy.producttrip.Activities.MapsActivityRepartidor;
+import com.example.nissy.producttrip.Activities.VistaPagoActivity;
 import com.example.nissy.producttrip.Clases.Pedido;
 import com.example.nissy.producttrip.R;
 import com.example.nissy.producttrip.conexion.VolleySingleton;
@@ -31,7 +37,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidoHolder> {
+public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidoHolder>{
     Context mContext;
     List<Pedido> mData;
     int idrepartidor;
@@ -56,13 +62,9 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidoHo
         bind(mData.get(position), v);
         pedido.nombre_producto.setText(mData.get(position).getNombre_producto());
         pedido.nombre_tienda.setText(mData.get(position).getNombre_tienda()+"");
-        pedido.direccion_entrega.setText(mData.get(position).getLatitud()+"");
+        pedido.direccion_entrega.setText(mData.get(position).getClatitud()+"");
     }
 
-    public void login(int idpedido, int idrepartidor){
-
-
-    }
 
     Pedido extra;
     private void bind(Pedido item, View view) {
@@ -90,21 +92,18 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidoHo
                                     Log.i("VOLLEY",jsonObject.toString());
                                     Toast.makeText(mContext,jsonObject.getString("mensaje"),Toast.LENGTH_SHORT).show();
                                     if(status.equals("1")){
-                                        Intent intent = new Intent(mContext, MapsActivity.class);
+                                        Intent intent = new Intent(mContext, MapsActivityRepartidor.class);
                                         intent.putExtra("idpedido", extra.getIdproducto());
                                         intent.putExtra("idproducto", extra.getIdproducto());
                                         intent.putExtra("nombre_producto", extra.getNombre_producto()+"");
-                                        intent.putExtra("descripcion", extra.getDescripcion());
-                                        intent.putExtra("latitud", extra.getLatitud());
-                                        intent.putExtra("longitud", extra.getLongitud());
+                                        intent.putExtra("clatitud", extra.getClatitud());
+                                        intent.putExtra("clongitud", extra.getClongitud());
                                         intent.putExtra("idtienda", extra.getIdtienda());
                                         intent.putExtra("nombre_tienda", extra.getNombre_tienda());
                                         intent.putExtra("idcliente", extra.getIdcliente());
                                         intent.putExtra("nombre_cliente", extra.getNombre_cliente());
                                         mContext.startActivity(intent);
                                     }
-
-
                                 } catch (JSONException e) {
                                     Log.e("VOLLEY", e.toString());
                                 }
@@ -146,6 +145,7 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidoHo
     public int getItemCount() {
         return mData.size();
     }
+
 
     public class PedidoHolder extends RecyclerView.ViewHolder{
 

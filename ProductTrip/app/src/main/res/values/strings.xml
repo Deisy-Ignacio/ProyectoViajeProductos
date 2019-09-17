@@ -26,5 +26,6 @@
 
     <string name="facebook_app_id">389402445076492</string>
     <string name="fb_login_protocol_scheme">fb389402445076492</string>
+    <string name="title_activity_maps_repartidor">Map</string>
 
 </resources>

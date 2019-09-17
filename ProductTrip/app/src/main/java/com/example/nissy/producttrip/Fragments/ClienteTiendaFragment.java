@@ -49,10 +49,6 @@ public class ClienteTiendaFragment extends Fragment {
     public ClienteTiendaFragment() {
 
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 6c4425bdfd017601e6ecdedf3dfebdef406667f0
     // TODO: Rename and change types and number of parameters
     public static ClienteTiendaFragment newInstance(String param1, String param2) {
         ClienteTiendaFragment fragment = new ClienteTiendaFragment();

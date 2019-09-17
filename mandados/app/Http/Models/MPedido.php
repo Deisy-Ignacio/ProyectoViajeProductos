@@ -16,9 +16,10 @@ class MPedido extends Model{
         'idcliente',
         'idrepartidor',
         'idproducto',
-        'latitud',
-        'longitud',
-        'descripcion',
+        'clatitud',
+        'clongitud',
+        'rlatitud',
+        'rlongitud',
         'fecha',
         'entregado',
         'pagado'

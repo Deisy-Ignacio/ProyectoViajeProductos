@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "71223669046",
+    "firebase_url": "https://emergentesuber-253122.firebaseio.com",
+    "project_id": "emergentesuber-253122",
+    "storage_bucket": "emergentesuber-253122.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71223669046:android:99eb436eda411d03750397",
+        "android_client_info": {
+          "package_name": "com.example.nissy.producttrip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "71223669046-1j37ps4se583ufb004enlpv0pttl1hi5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nissy.producttrip",
+            "certificate_hash": "cb2b8a79c2cb278b5f32a45fa82fed13f937002c"
+          }
+        },
+        {
+          "client_id": "71223669046-sattjr85k8f6sg5m01q1ajnsgj57i0ks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMdvuubary_jl8QVXw69CGkaNpCcAo6lk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "71223669046-sattjr85k8f6sg5m01q1ajnsgj57i0ks.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

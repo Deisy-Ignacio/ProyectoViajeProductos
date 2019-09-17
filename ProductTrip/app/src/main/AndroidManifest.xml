@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nissy.producttrip">
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,8 +15,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-<<<<<<< HEAD
-        <activity android:name=".Activities.MapsActivity"></activity>
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <activity
+            android:name=".Activities.MapsActivityRepartidor"
+            android:label="@string/title_activity_maps_repartidor"></activity>
+
+        <activity
+            android:name=".Activities.MapsActivity"
+            android:label="@string/title_activity_maps" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -22,62 +41,57 @@
         -->
         <activity android:name=".Activities.PedidosDisponibles" />
         <activity android:name=".Activities.VistaListaProductosActivity" />
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-        <activity android:name="com.facebook.FacebookActivity" android:configChanges= "keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:label="@string/app_name" />
-        <activity android:name="com.facebook.CustomTabActivity" android:exported="true">
-            <intent-filter> <action android:name="android.intent.action.VIEW" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Activities.LoginActivity"
             android:label="@string/app_name"
-            android:noHistory = "true">
-
-=======
-        <activity android:name=".Activities.VistaListaProductosActivity"></activity>
-        <activity android:name=".Activities.VistaPagoActivity" />
-        <activity
-            android:name=".Activities.LoginActivity"
-            android:label="@string/app_name" />
-        <activity
-            android:name=".Activities.VistaClienteActivity"
-            android:label="@string/title_activity_vista_cliente"
-            android:theme="@style/AppTheme.NoActionBar">
->>>>>>> 6c4425bdfd017601e6ecdedf3dfebdef406667f0
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.VistaPagoActivity" />
+        <activity
+            android:name=".Activities.VistaClienteActivity"
+            android:label="@string/title_activity_vista_cliente"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.RegistroCliente" />
         <activity android:name=".Activities.RegistroRepartidorActivity" />
         <activity android:name=".Activities.RegistroTiendaActivity" />
         <activity android:name=".Activities.VistaTiendaActivity" />
         <activity android:name=".Activities.RegistrarProductoActivity" />
-<<<<<<< HEAD
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-    </application>
-    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-=======
-    </application>
-    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
->>>>>>> 6c4425bdfd017601e6ecdedf3dfebdef406667f0
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+    </application>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>

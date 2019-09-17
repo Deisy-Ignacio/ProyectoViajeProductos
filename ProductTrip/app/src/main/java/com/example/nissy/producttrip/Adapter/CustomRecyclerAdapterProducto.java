@@ -69,11 +69,13 @@ public class CustomRecyclerAdapterProducto extends RecyclerView.Adapter<CustomRe
         pagar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(context, VistaPagoActivity.class);
-                intent.putExtra("nombre_producto", item.getmName());
+                intent.putExtra("idproducto", item.getId()+"");
+                intent.putExtra("idtienda", item.getIdTienda()+"");
+                intent.putExtra("nombre_producto", item.getmName()+"");
                 intent.putExtra("precio", String.valueOf(item.getmCantidad()));
-                intent.putExtra("descripcion_producto", item.getDescripcion());
+                intent.putExtra("descripcion_producto", item.getDescripcion()+"");
                 view.getContext().startActivity(intent);
-                Toast.makeText(view.getContext(), item.getmName()+" is "+ item.getmCantidad(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), item.getId()+ " tienda "+item.getIdTienda(), Toast.LENGTH_SHORT).show();
             }
         });
 

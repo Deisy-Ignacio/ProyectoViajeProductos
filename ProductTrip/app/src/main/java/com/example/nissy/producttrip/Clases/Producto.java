@@ -34,6 +34,7 @@ public class Producto  implements Serializable {
         this.descripcion = descripcion;
         this.id=id;
         this.stock = stock;
+        this.idTienda = idTienda;
     }
 
     public String getmName() {
@@ -66,6 +67,14 @@ public class Producto  implements Serializable {
         if(this.mQuantity > 1){
             this.mQuantity -= 1;
         }
+    }
+
+    public int getIdTienda() {
+        return idTienda;
+    }
+
+    public void setIdTienda(int idTienda) {
+        this.idTienda = idTienda;
     }
 
     public Producto getProduct(){return Producto;}

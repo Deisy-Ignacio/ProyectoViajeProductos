@@ -6,22 +6,51 @@ public class Pedido {
     private int idpedido;
     private int idproducto;
     private String nombre_producto;
-    private String descripcion;
-    private double latitud;
-    private double longitud;
+    private double clatitud;
+    private double clongitud;
+    private double rlatitud;
+    private double rlongitud;
     private int idtienda;
     private String nombre_tienda;
     private int idcliente;
     private String nombre_cliente;
 
-    public Pedido(int idpedido, int idproducto, String nombre_producto, String descripcion, double latitud, double longitud, int idtienda, String nombre_tienda, int idcliente, String nombre_cliente) {
-        Log.i("VOLLEY","CLASS PEDIDO: idpedido" + idpedido);
+
+
+    private int idrepartidor;
+
+    public Pedido(int idpedido, int idproducto, double clatitud, double clongitud, int idcliente, int idrepartidor) {
+        this.idpedido = idpedido;
+        this.idproducto = idproducto;
+        this.clatitud = clatitud;
+        this.clongitud = clongitud;
+        this.idcliente = idcliente;
+        this.idrepartidor = idrepartidor;
+    }
+
+    public Pedido(int idpedido, int idproducto, String nombre_producto, double clatitud, double clongitud, double rlatitud, double rlongitud, int idtienda, String nombre_tienda, int idcliente, String nombre_cliente) {
         this.idpedido = idpedido;
         this.idproducto = idproducto;
         this.nombre_producto = nombre_producto;
-        this.descripcion = descripcion;
-        this.latitud = latitud;
-        this.longitud = longitud;
+        this.clatitud = clatitud;
+        this.clongitud = clongitud;
+        this.rlatitud = rlatitud;
+        this.rlongitud = rlongitud;
+        this.idtienda = idtienda;
+        this.nombre_tienda = nombre_tienda;
+        this.idcliente = idcliente;
+        this.nombre_cliente = nombre_cliente;
+    }
+
+
+
+
+    public Pedido(int idpedido, int idproducto, String nombre_producto, double clatitud, double clongitud, int idtienda, String nombre_tienda, int idcliente, String nombre_cliente) {
+        this.idpedido = idpedido;
+        this.idproducto = idproducto;
+        this.nombre_producto = nombre_producto;
+        this.clatitud = clatitud;
+        this.clongitud = clongitud;
         this.idtienda = idtienda;
         this.nombre_tienda = nombre_tienda;
         this.idcliente = idcliente;
@@ -30,6 +59,14 @@ public class Pedido {
 
     public int getIdpedido() {
         return idpedido;
+    }
+
+    public int getIdrepartidor() {
+        return idrepartidor;
+    }
+
+    public void setIdrepartidor(int idrepartidor) {
+        this.idrepartidor = idrepartidor;
     }
 
     public void setIdpedido(int idpedido) {
@@ -52,28 +89,36 @@ public class Pedido {
         this.nombre_producto = nombre_producto;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public double getClatitud() {
+        return clatitud;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setClatitud(double clatitud) {
+        this.clatitud = clatitud;
     }
 
-    public double getLatitud() {
-        return latitud;
+    public double getClongitud() {
+        return clongitud;
     }
 
-    public void setLatitud(double latitud) {
-        this.latitud = latitud;
+    public void setClongitud(double clongitud) {
+        this.clongitud = clongitud;
     }
 
-    public double getLongitud() {
-        return longitud;
+    public double getRlatitud() {
+        return rlatitud;
     }
 
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
+    public void setRlatitud(double rlatitud) {
+        this.rlatitud = rlatitud;
+    }
+
+    public double getRlongitud() {
+        return rlongitud;
+    }
+
+    public void setRlongitud(double rlongitud) {
+        this.rlongitud = rlongitud;
     }
 
     public int getIdtienda() {

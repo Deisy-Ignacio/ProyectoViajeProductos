@@ -2,10 +2,12 @@ package com.example.nissy.producttrip.Activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -61,11 +63,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Id to identity READ_CONTACTS permission request.
      */
-<<<<<<< HEAD
     public static final String BASE_URL = "http://192.168.1.65/api/auth/";
-=======
-    public static final String BASE_URL = "http://192.168.1.71/api/auth/"; //MI IP, NO LO OLVIDO :B
->>>>>>> 6c4425bdfd017601e6ecdedf3dfebdef406667f0
     private static final int REQUEST_READ_CONTACTS = 0;
 
     private CallbackManager callbackManager;
@@ -81,14 +79,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private Button registrar,login;
     private String itemText;
 
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
+
+        /*
         Session session = new Session(LoginActivity.this);
         if(!session.gettipo().equals(""))
-            dologin(session.getcorreo(),session.getcontrasena(),session.gettipo());
+            dologin(session.getcorreo(),session.getcontrasena(),session.gettipo());*/
 
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -154,7 +155,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
-
+    public void cerrarsesion(){
+        Session session = new Session(LoginActivity.this);
+        session.settipo("");
+        session.setcontrasena("");
+        session.setcorreo("");
+    }
 
     public void dologin(String correo, String contra, final String tipo){
         String URL = "login/"+tipo;
@@ -227,6 +233,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
@@ -260,6 +267,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Callback received when a permissions request has been completed.
      */
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -276,6 +284,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
@@ -369,6 +378,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+    @SuppressLint("NewApi")
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
@@ -427,6 +438,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
+    @SuppressLint("NewApi")
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
@@ -559,10 +571,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         finish();
     }
 
-    /*@Override
+    @Override
     protected void onPause() {
         super.onPause();
-<<<<<<< HEAD
     }
 
     @Override
@@ -575,8 +586,5 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onStop();
         finish();
     }
-=======
-    }*/
->>>>>>> 6c4425bdfd017601e6ecdedf3dfebdef406667f0
 }
 

@@ -12,22 +12,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-<<<<<<< HEAD
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-=======
->>>>>>> 6c4425bdfd017601e6ecdedf3dfebdef406667f0
 
-import com.example.nissy.producttrip.Clases.Session;
 import com.example.nissy.producttrip.Fragments.ClienteTiendaFragment;
 import com.example.nissy.producttrip.Fragments.Cliente_pedidosFragment;
 import com.example.nissy.producttrip.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class VistaClienteActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Cliente_pedidosFragment.OnFragmentInteractionListener, ClienteTiendaFragment.OnFragmentInteractionListener {
 
+    public static JSONObject cliente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +31,12 @@ public class VistaClienteActivity extends AppCompatActivity
         setContentView(R.layout.activity_vista_cliente);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        try {
+            cliente = new JSONObject(getIntent().getStringExtra("cliente"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -56,10 +58,10 @@ public class VistaClienteActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            //super.onBackPressed();
-            Intent inten = new Intent();
-            inten.setClass(VistaClienteActivity.this,LoginActivity.class);
-            startActivity(inten);
+            super.onBackPressed();
+            //Intent inten = new Intent();
+            //inten.setClass(VistaClienteActivity.this,LoginActivity.class);
+            //startActivity(inten);
             finish();
         }
 
@@ -81,10 +83,8 @@ public class VistaClienteActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Session session = new Session(VistaClienteActivity.this);
-            session.setcorreo("");
-            session.setcontrasena("");
-            session.settipo("");
+            LoginActivity loginActivity = new LoginActivity();
+            loginActivity.cerrarsesion();
             finish();
         }
 
@@ -101,11 +101,7 @@ public class VistaClienteActivity extends AppCompatActivity
         if (id == R.id.store) {
             miFragment = new ClienteTiendaFragment();
             fragmentSeleccionaldo = true;
-        }
-        /*else if (id == R.id.carrito) {
-            /*miFragment = new Cliente_CarritosFragment();
-            fragmentSeleccionaldo = true;
-        }*/ else if (id == R.id.pedidos) {
+        } else if (id == R.id.pedidos) {
             miFragment = new Cliente_pedidosFragment();
             fragmentSeleccionaldo = true;
 

@@ -66,8 +66,8 @@ public class PedidosDisponibles extends AppCompatActivity {
         mapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent mapa = new Intent(PedidosDisponibles.this, MapsActivity.class);
-                //startActivity(mapa);
+                Intent mapa = new Intent(PedidosDisponibles.this, MapsActivity.class);
+                startActivity(mapa);
             }
         });
     }
@@ -98,9 +98,8 @@ public class PedidosDisponibles extends AppCompatActivity {
                                 pedidos.add(new Pedido(Integer.parseInt(datos.getString("idpedido")),
                                         Integer.parseInt(datos.getString("idproducto")),
                                         datos.getString("nombre_producto"),
-                                        datos.getString("descripcion"),
-                                        Double.parseDouble(datos.getString("latitud")),
-                                        Double.parseDouble(datos.getString("longitud")),
+                                        Double.parseDouble(datos.getString("clatitud")),
+                                        Double.parseDouble(datos.getString("clongitud")),
                                         Integer.parseInt(datos.getString("idtienda")),
                                         datos.getString("nombre_tienda"),
                                         Integer.parseInt(datos.getString("idcliente")),

@@ -34,5 +34,9 @@ Route::group(['prefix'=>'auth'], function(){
     Route::get('disponibles/pedido','ContPedido@pedidosRepartidor');
     Route::post('asignar/pedido','ContPedido@asignarRepartidor');
     Route::post('sin/pedido','ContPedido@sinconfirmar');
+    Route::post('nuevo/pedido','ContPedido@nuevo');
+    Route::post('actualizar/pedido','ContPedido@actualizarUbicacion');
+    Route::get('ubicacion/pedido/{idpedido}','ContPedido@ubicacionPedido');
+    Route::get('clinete/pedido/{idcliente}','ContPedido@pedidosActualesCliente');
     //asignarRepartidor
 });
